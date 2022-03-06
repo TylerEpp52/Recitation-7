@@ -51,6 +51,7 @@ Node* BST::getRoot(){
 void BST:: destroyNode(Node *currNode){
  // check for empty tree
     //else traverse and delete
+
  }
 
 /*
@@ -172,24 +173,32 @@ Node*  BST::kthSmallestHelper(Node* currNode, int* counter, int k)
     if ( currNode == NULL) {
         return NULL;
     }
+
  
     // recur for the left subtree
-   
+    currNode = currNode->left;
  
     // if k'th smallest node is found in left return
-    
+    if(*counter == k)
+    {
+        return currNode;
+    }
  
     //for current node increment counter
     ++(*counter);
     // if the root is k'th smallest node
-   
+    if(*counter == k && currNode == root)
+    {
+        return root;
+    }
  
     // recur for the right subtree only if k'th smallest node is not found
+    if(k != *counter)
+    {
+         currNode = currNode->right;
+    }
     // in the right subtree
     
-    
-    
-    return NULL;//get rid of this line
 }
  
 // Function to find the k'th smallest node in a BST
@@ -197,7 +206,7 @@ Node*  BST::findKthSmallest(int k)
 {
     // counter to keep track of the total number of the visited nodes
     int counter = 0;
- 
+
     // recursively find the k'th smallest node
     return kthSmallestHelper(root, &counter, k);
 }
